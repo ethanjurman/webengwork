@@ -1,0 +1,44 @@
+<html>
+<header><title>ADAPT THE THING</title></header>
+<body>
+  <div>
+    <input id="source" type="text">
+  </div>
+  <button onclick="adapt()"> adapt it </button>
+  <div>
+    <input disabled id="output" type="text">
+  </div>
+  <script type="text/javascript">
+    "use strict";
+
+    class Adapter {
+      constructor(style){
+        this.style = style;
+      }
+      request(text) {
+        const specialText = new this.style(text);
+        text = specialText.setStart(text);
+        text = specialText.setEnd(text);
+        return text;
+      }
+    }
+
+    class SpecialText {
+      setStart(text) {
+        return "** " + text;
+      }
+
+      setEnd(text) {
+        return text + " **";
+      }
+    }
+
+    function adapt() {
+      const adapter = new Adapter(SpecialText); // takes in a class with setState and setEnd
+      const val = adapter.request(document.getElementById("source").value);
+      document.getElementById("output").value = val;
+    }
+
+  </script>
+</body>
+</html>

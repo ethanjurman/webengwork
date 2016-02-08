@@ -1,0 +1,50 @@
+<html>
+<header><title>FACADE THE THING</title></header>
+<body>
+  <div>
+    <input id="initialAmount" placeholder="intial investment" type="number">
+    <input id="percent" placeholder="interest rate" type="number">
+    <input id="years" placeholder="years" type="number">
+  </div>
+  <button onclick="result()"> find future value of it </button>
+  <div>
+    <input disabled id="output" type="text">
+  </div>
+  <script type="text/javascript">
+    "use strict";
+
+    class Facade {
+      constructor(bank){
+        this.bank = bank;
+      }
+      findValue(initialAmount, percent, years) {
+        let newBank = new this.bank(initialAmount);
+        newBank.setPercent(percent);
+        return newBank.findValue(years);
+      }
+    }
+
+    class LegacyCode {
+      constructor(initialAmount){
+        this.initialAmount = initialAmount;
+        this.percent = 10;
+      }
+      findValue(years) {
+        return this.initialAmount * Math.pow((1 + this.percent/100), years);
+      }
+      setPercent(percent) {
+        this.percent = percent;
+      }
+    }
+
+    function result() {
+      const facade = new Facade(LegacyCode); // takes in a class with setState and setEnd
+      const initialAmount = document.getElementById("initialAmount").value;
+      const percent = document.getElementById("percent").value;
+      const years = document.getElementById("years").value;
+      document.getElementById("output").value = facade.findValue(initialAmount, percent, years);
+    }
+
+  </script>
+</body>
+</html>

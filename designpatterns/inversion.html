@@ -1,0 +1,20 @@
+<html>
+<header><title>INVERT THE THING</title></header>
+<body>
+  <div>
+    <input disabled id="output" placeholder="click anywhere" type="text">
+  </div>
+  <ul>
+  </ul>
+  <script type="text/javascript">
+    "use strict";
+
+    function clickEvent(event) {
+      document.getElementById("output").value = `x: ${event.x}, y: ${event.y}`
+    }
+
+    document.addEventListener("click", clickEvent);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<html>
+<header><title>MEDIATE THE THING</title></header>
+<body>
+  <input disabled id="output" type="text">
+  <script type="text/javascript">
+    "use strict";
+
+    class Mediator {
+      constructor(){
+        this.registered = [];
+      }
+      register(mediatee) {
+        this.registered.push(mediatee);
+      }
+      sum() {
+        let sum = 0;
+        this.registered.forEach((m)=>{
+          sum += m.getValue();
+        });
+        return sum;
+      }
+    }
+
+    class Mediatee {
+      constructor() {
+        this.value = 0;
+      }
+      addValue(v) {
+        this.value += v;
+      }
+      getValue() {
+        return this.value;
+      }
+    }
+
+    let mediatees = [new Mediatee(), new Mediatee(), new Mediatee(), new Mediatee()];
+    const mediator = new Mediator();
+    mediatees.forEach((m)=>{
+      mediator.register(m);
+    });
+
+    function seeValue(){
+      document.getElementById("output").value = mediator.sum();
+    }
+
+  </script>
+  <button onclick="mediatees[0].addValue(1); seeValue()"> Add 1 </button>
+  <button onclick="mediatees[1].addValue(2); seeValue()"> Add 2 </button>
+  <button onclick="mediatees[2].addValue(3); seeValue()"> Add 3 </button>
+  <button onclick="mediatees[3].addValue(4); seeValue()"> Add 4 </button>
+
+</body>
+</html>
