@@ -1,4 +1,9 @@
 web workers easy!
-`npm install`
-`npm start`
-go to `http://localhost:3000/webworkers.html`
+
+1. install node (although if you don't want to, you can just use any application that will serve the folder `/static`, there is no server side logic)
+
+2. ```npm install```
+
+3. ```npm start```
+
+and go to `http://localhost:3000/webworkers.html`!
