@@ -1,0 +1,34 @@
+<html>
+<body>
+  Web Workers Rule <br/>
+  <input id="counter" type="text" value="0" disabled/> <br/>
+  <input id="input" type="text" placeholder="fib"/> <button onclick="onClick()">GO!</button><br/>
+  <input id="output" type="text" placeholder="fib result" disabled/> <br/>
+
+  <script>
+    // TIMER CODE START
+    // THIS IS JUST TO SEE IF THE APPLICATION IS HALTING OR NOT.
+    setInterval(()=>{
+      document.getElementById("counter").value = parseInt(document.getElementById("counter").value) + 1;
+    }, 10);
+    // TIMER CODE END
+
+    function onClick() {
+      getFib(parseInt(document.getElementById("input").value));
+    }
+
+    // main.js
+    var fibWorker = new Worker("fib.js");
+
+    function getFib(n) {
+      document.getElementById("output").value = "calculating..."
+      fibWorker.postMessage(n);
+    }
+
+    fibWorker.onmessage = function(event) {
+      document.getElementById("output").value = event.data;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<html>
+  <body>
+    Weather:
+    <ul id="list"></ul>
+    Forecast: <input disabled id="output" type="text"> <br/>
+    <img id="img"></img>
+    <script>
+      "use strict";
+      const urlList = "http://www.se.rit.edu/~swen-344/activities/rest/RESTAPI-Weather.php?action=get_weather_list";
+
+      const request = new XMLHttpRequest();
+      request.open('GET', urlList, true);
+
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          // Success!
+          const data = JSON.parse(request.responseText);
+          data.map((ele)=>{
+            const listElement = document.createElement("li");
+            const text = document.createTextNode(
+              `zip:${ele.zip}, name:${ele.name}`
+            );
+            listElement.appendChild(text);
+            const buttonElement = document.createElement("button");
+            buttonElement.appendChild(document.createTextNode("get forecast"));
+            buttonElement.onclick = function(){
+              document.getElementById("output").value = ele.forecast;
+              document.getElementById("img").src = ele.image;
+            }
+            listElement.appendChild(buttonElement);
+
+            const list = document.getElementById("list");
+            list.appendChild(listElement);
+          })
+        }
+      };
+      request.send();
+    </script>
+  </body>
+</html>

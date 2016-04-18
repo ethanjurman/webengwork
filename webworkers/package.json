@@ -1,0 +1,11 @@
+{
+  "name": "webworkers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "author": "Ethan Jurman",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}

@@ -1,0 +1,33 @@
+<html>
+<body>
+  Web Workers Rule <br/>
+  <input id="counter" type="text" value="0" disabled/> <br/>
+  <input id="input" type="text" placeholder="fib"/> <button onclick="onClick()">GO!</button><br/>
+  <input id="output" type="text" placeholder="fib result" disabled/> <br/>
+
+  <script>
+    "use strict";
+
+    setInterval(()=>{
+      document.getElementById("counter").value = parseInt(document.getElementById("counter").value) + 1;
+    }, 10);
+
+    function onClick() {
+      getFib(parseInt(document.getElementById("input").value));
+    }
+
+    // main.js
+    const fibWorker = new Worker("fibES6.js");
+
+    function getFib(n) {
+      document.getElementById("output").value = "calculating..."
+      fibWorker.postMessage(n);
+    }
+
+    fibWorker.onmessage = (event) => {
+      document.getElementById("output").value = event.data;
+    }
+  </script>
+
+</body>
+</html>
